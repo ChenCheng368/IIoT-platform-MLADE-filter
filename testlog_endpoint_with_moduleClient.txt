@@ -1,0 +1,217 @@
+endpoint=http://13.67.43.175:5000/ only valid for direct http call from edge.
+***************************logs of python container**********************************************************************
+
+VM18 run SDK client on edge VM with pre-stored data, endpoint=https://cctestanamalydetector.cognitiveservices.azure.com/:
+Detecting the anomaly status of the latest data point.
+INFO:azure.core.pipeline.policies.http_logging_policy:Request URL: 'https://cctestanamalydetector.cognitiveservices.azure.com//anomalydetector/v1.1-preview/timeseries/last/detect'
+INFO:azure.core.pipeline.policies.http_logging_policy:Request method: 'POST'
+INFO:azure.core.pipeline.policies.http_logging_policy:Request headers:
+INFO:azure.core.pipeline.policies.http_logging_policy:    'Content-Type': 'application/json'
+INFO:azure.core.pipeline.policies.http_logging_policy:    'Accept': 'application/json'
+INFO:azure.core.pipeline.policies.http_logging_policy:    'Content-Length': '3044'
+INFO:azure.core.pipeline.policies.http_logging_policy:    'x-ms-client-request-id': '98abedc6-3273-11ec-8cb3-17c1c9df7e94'
+INFO:azure.core.pipeline.policies.http_logging_policy:    'User-Agent': 'azsdk-python-ai-anomalydetector/3.0.0b3 Python/3.8.8 (Linux-5.4.0-1061-azure-x86_64-with-glibc2.10)'
+INFO:azure.core.pipeline.policies.http_logging_policy:    'Ocp-Apim-Subscription-Key': 'REDACTED'
+INFO:azure.core.pipeline.policies.http_logging_policy:A body is sent with the request
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): cctestanamalydetector.cognitiveservices.azure.com:443
+DEBUG:urllib3.connectionpool:https://cctestanamalydetector.cognitiveservices.azure.com:443 "POST //anomalydetector/v1.1-preview/timeseries/last/detect HTTP/1.1" 200 200
+INFO:azure.core.pipeline.policies.http_logging_policy:Response status: 200
+INFO:azure.core.pipeline.policies.http_logging_policy:Response headers:
+INFO:azure.core.pipeline.policies.http_logging_policy:    'Content-Length': '200'
+INFO:azure.core.pipeline.policies.http_logging_policy:    'Content-Type': 'application/json'
+INFO:azure.core.pipeline.policies.http_logging_policy:    'csp-billing-usage': 'REDACTED'
+INFO:azure.core.pipeline.policies.http_logging_policy:    'model-id': 'REDACTED'
+INFO:azure.core.pipeline.policies.http_logging_policy:    'x-envoy-upstream-service-time': 'REDACTED'
+INFO:azure.core.pipeline.policies.http_logging_policy:    'apim-request-id': 'REDACTED'
+INFO:azure.core.pipeline.policies.http_logging_policy:    'Strict-Transport-Security': 'REDACTED'
+INFO:azure.core.pipeline.policies.http_logging_policy:    'x-content-type-options': 'REDACTED'
+INFO:azure.core.pipeline.policies.http_logging_policy:    'Date': 'Thu, 21 Oct 2021 13:34:19 GMT'
+The latest point is not detected as anomaly.
+{'additional_properties': {}, 'period': 7, 'suggested_window': 29, 'expected_value': 35253918.97570676, 'upper_margin': 352539.189757064, 'lower_margin': 352539.189757064, 'is_anomaly': False, 'is_negative_anomaly': False, 'is_positive_anomaly': False}
+
+
+
+
+VM18 run SDK client on edge VM with pre-stored data, endpoint=http://13.67.43.175:5000/:
+Detecting the anomaly status of the latest data point.
+INFO:azure.core.pipeline.policies.http_logging_policy:Request URL: 'http://13.67.43.175:5000//anomalydetector/v1.1-preview/timeseries/last/detect'
+INFO:azure.core.pipeline.policies.http_logging_policy:Request method: 'POST'
+INFO:azure.core.pipeline.policies.http_logging_policy:Request headers:
+INFO:azure.core.pipeline.policies.http_logging_policy:    'Content-Type': 'application/json'
+INFO:azure.core.pipeline.policies.http_logging_policy:    'Accept': 'application/json'
+INFO:azure.core.pipeline.policies.http_logging_policy:    'Content-Length': '3044'
+INFO:azure.core.pipeline.policies.http_logging_policy:    'x-ms-client-request-id': '2c682568-3277-11ec-bf8d-d9b241dfb9f1'
+INFO:azure.core.pipeline.policies.http_logging_policy:    'User-Agent': 'azsdk-python-ai-anomalydetector/3.0.0b3 Python/3.8.8 (Linux-5.4.0-1061-azure-x86_64-with-glibc2.10)'
+INFO:azure.core.pipeline.policies.http_logging_policy:    'Ocp-Apim-Subscription-Key': 'REDACTED'
+INFO:azure.core.pipeline.policies.http_logging_policy:A body is sent with the request
+DEBUG:urllib3.connectionpool:Starting new HTTP connection (1): 13.67.43.175:5000
+DEBUG:urllib3.connectionpool:http://13.67.43.175:5000 "POST //anomalydetector/v1.1-preview/timeseries/last/detect HTTP/1.1" 404 0
+INFO:azure.core.pipeline.policies.http_logging_policy:Response status: 404
+INFO:azure.core.pipeline.policies.http_logging_policy:Response headers:
+INFO:azure.core.pipeline.policies.http_logging_policy:    'Date': 'Thu, 21 Oct 2021 13:59:57 GMT'
+INFO:azure.core.pipeline.policies.http_logging_policy:    'Server': 'Kestrel'
+INFO:azure.core.pipeline.policies.http_logging_policy:    'Content-Length': '0'
+Traceback (most recent call last):
+  File "anomaly_detector.py", line 50, in detect_last_point
+    response = client.detect_last_point(request)
+  File "/home/azureuser/anaconda3/lib/python3.8/site-packages/azure/ai/anomalydetector/operations/_anomaly_detector_client_operations.py", line 141, in detect_last_point
+    map_error(status_code=response.status_code, response=response, error_map=error_map)
+  File "/home/azureuser/anaconda3/lib/python3.8/site-packages/azure/core/exceptions.py", line 105, in map_error
+    raise error
+azure.core.exceptions.ResourceNotFoundError: Operation returned an invalid status 'Not Found'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "anomaly_detector.py", line 100, in <module>
+    detect_last_point(request)
+  File "anomaly_detector.py", line 51, in detect_last_point
+    except AnomalyDetectorError as e:
+TypeError: catching classes that do not inherit from BaseException is not allowed
+
+
+
+
+VM20 run SDK client on py container with streaming data, endpoint=http://20.191.144.198:5000/:
+Detecting the anomaly status of the latest data point.
+DEBUG:azure.iot.device.iothub.aio.async_handler_manager:HANDLER RUNNER (_on_message_received): Invoking handler
+INFO:azure.core.pipeline.policies.http_logging_policy:Request URL: 'http://20.191.144.198:5000//anomalydetector/v1.1-preview/timeseries/last/detect'/nRequest method: 'POST'/nRequest headers:/n    'Content-Type': 'application/json'/n    'Accept': 'application/json'/n    'Content-Length': '980'/n    'x-ms-client-request-id': '2283b96c-326e-11ec-a011-0242ac120006'/n    'User-Agent': 'azsdk-python-ai-anomalydetector/3.0.0b3 Python/3.7.12 (Linux-5.8.0-1043-azure-x86_64-with-debian-10.11)'/n    'Ocp-Apim-Subscription-Key': 'REDACTED'/nA body is sent with the request
+DEBUG:urllib3.connectionpool:Starting new HTTP connection (1): 20.191.144.198:5000
+DEBUG:urllib3.connectionpool:http://20.191.144.198:5000 "POST //anomalydetector/v1.1-preview/timeseries/last/detect HTTP/1.1" 404 0
+INFO:azure.core.pipeline.policies.http_logging_policy:Response status: 404/nResponse headers:/n    'Date': 'Thu, 21 Oct 2021 12:55:14 GMT'/n    'Server': 'Kestrel'/n    'Content-Length': '0'
+Error when filter message: catching classes that do not inherit from BaseException is not allowed
+
+
+
+
+VM20 run SDK client on py container with streaming data, endpoint=https://cctestanamalydetector.cognitiveservices.azure.com/:
+Detecting the anomaly status of the latest data point.
+INFO:azure.core.pipeline.policies.http_logging_policy:Request URL: 'https://cctestanamalydetector.cognitiveservices.azure.com//anomalydetector/v1.1-preview/timeseries/last/detect'/nRequest method: 'POST'/nRequest headers:/n    'Content-Type': 'application/json'/n    'Accept': 'application/json'/n    'Content-Length': '980'/n    'x-ms-client-request-id': '420b9f5a-327a-11ec-87e5-0242ac120006'/n    'User-Agent': 'azsdk-python-ai-anomalydetector/3.0.0b3 Python/3.7.12 (Linux-5.8.0-1043-azure-x86_64-with-debian-10.11)'/n    'Ocp-Apim-Subscription-Key': 'REDACTED'/nA body is sent with the request
+DEBUG:urllib3.connectionpool:https://cctestanamalydetector.cognitiveservices.azure.com:443 "POST //anomalydetector/v1.1-preview/timeseries/last/detect HTTP/1.1" 200 191
+INFO:azure.core.pipeline.policies.http_logging_policy:Response status: 200/nResponse headers:/n    'Content-Length': '191'/n    'Content-Type': 'application/json'/n    'csp-billing-usage': 'REDACTED'/n    'model-id': 'REDACTED'/n    'x-envoy-upstream-service-time': 'REDACTED'/n    'apim-request-id': 'REDACTED'/n    'Strict-Transport-Security': 'REDACTED'/n    'x-content-type-options': 'REDACTED'/n    'Date': 'Thu, 21 Oct 2021 14:22:01 GMT'
+INFO:azure.iot.device.iothub.aio.async_clients:Sending message to output:output1...
+finish detection
+infer_result is:  ['2021-10-21T14:22:01.7062795Z', False]
+
+
+
+
+*******************************************************use previous version SDK 3.0.0b2(AD version v1.0)***************************************************
+VM20 run module client on py container with streaming data, endpoint=http://20.191.144.198:5000/:
+Detecting the anomaly status of the latest data point.
+INFO:azure.core.pipeline.policies.http_logging_policy:Request URL: 'http://20.191.144.198:5000//anomalydetector/v1.0/timeseries/last/detect'/nRequest method: 'POST'/nRequest headers:/n    'Content-Type': 'application/json'/n    'Accept': 'application/json'/n    'Content-Length': '1004'/n    'x-ms-client-request-id': '1e6338ae-3335-11ec-b216-0242ac120004'/n    'User-Agent': 'azsdk-python-ai-anomalydetector/3.0.0b2 Python/3.7.12 (Linux-5.8.0-1043-azure-x86_64-with-debian-10.11)'/n    'Ocp-Apim-Subscription-Key': 'REDACTED'/nA body is sent with the request
+DEBUG:urllib3.connectionpool:Starting new HTTP connection (1): 20.191.144.198:5000
+DEBUG:urllib3.connectionpool:http://20.191.144.198:5000 "POST //anomalydetector/v1.0/timeseries/last/detect HTTP/1.1" 404 0
+INFO:azure.core.pipeline.policies.http_logging_policy:Response status: 404/nResponse headers:/n    'Date': 'Fri, 22 Oct 2021 12:39:37 GMT'/n    'Server': 'Kestrel'/n    'Content-Length': '0'
+Error when filter message: catching classes that do not inherit from BaseException is not allowed
+
+
+
+VM20 run module call directly from edge VM, endpoint=http://20.191.144.198:5000/:
+Detecting the anomaly status of the latest data point.
+INFO:azure.core.pipeline.policies.http_logging_policy:Request URL: 'http://20.191.144.198:5000//anomalydetector/v1.0/timeseries/last/detect'/nRequest method: 'POST'/nRequest headers:/n    'Content-Type': 'application/json'/n    'Accept': 'application/json'/n    'Content-Length': '3044'/n    'x-ms-client-request-id': '1788ffd8-3618-11ec-bfcb-ffaa3d9e0a2f'/n    'User-Agent': 'azsdk-python-ai-anomalydetector/3.0.0b2 Python/3.8.8 (Linux-5.8.0-1043-azure-x86_64-with-glibc2.10)'/n    'Ocp-Apim-Subscription-Key': 'REDACTED'/nA body is sent with the request
+DEBUG:urllib3.connectionpool:Starting new HTTP connection (1): 20.191.144.198:5000
+DEBUG:urllib3.connectionpool:http://20.191.144.198:5000 "POST //anomalydetector/v1.0/timeseries/last/detect HTTP/1.1" 404 0
+INFO:azure.core.pipeline.policies.http_logging_policy:Response status: 404/nResponse headers:/n    'Date': 'Tue, 26 Oct 2021 04:49:23 GMT'/n    'Server': 'Kestrel'/n    'Content-Length': '0'
+Traceback (most recent call last):
+  File "anomaly_detector.py", line 51, in detect_last_point
+    response = client.detect_last_point(request)
+  File "/home/chencheng/anaconda3/lib/python3.8/site-packages/azure/ai/anomalydetector/operations/_anomaly_detector_client_operations.py", line 136, in detect_last_point
+    map_error(status_code=response.status_code, response=response, error_map=error_map)
+  File "/home/chencheng/anaconda3/lib/python3.8/site-packages/azure/core/exceptions.py", line 105, in map_error
+    raise error
+azure.core.exceptions.ResourceNotFoundError: Operation returned an invalid status 'Not Found'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "anomaly_detector.py", line 101, in <module>
+    detect_last_point(request)
+  File "anomaly_detector.py", line 52, in detect_last_point
+    except AnomalyDetectorError as e:
+TypeError: catching classes that do not inherit from BaseException is not allowed
+
+
+
+VM20 run module call directly from edge VM, change to endpoint=http://20.191.144.198:5000, so that there are no"//" but single "/" in url:
+Detecting the anomaly status of the latest data point.
+INFO:azure.core.pipeline.policies.http_logging_policy:Request URL: 'http://20.191.144.198:5000/anomalydetector/v1.0/timeseries/last/detect'/nRequest method: 'POST'/nRequest headers:/n    'Content-Type': 'application/json'/n    'Accept': 'application/json'/n    'Content-Length': '3044'/n    'x-ms-client-request-id': '40e0b91e-3615-11ec-9dc2-53d653413fbc'/n    'User-Agent': 'azsdk-python-ai-anomalydetector/3.0.0b2 Python/3.8.8 (Linux-5.8.0-1043-azure-x86_64-with-glibc2.10)'/n    'Ocp-Apim-Subscription-Key': 'REDACTED'/nA body is sent with the request
+DEBUG:urllib3.connectionpool:Starting new HTTP connection (1): 20.191.144.198:5000
+DEBUG:urllib3.connectionpool:http://20.191.144.198:5000 "POST /anomalydetector/v1.0/timeseries/last/detect HTTP/1.1" 200 None
+INFO:azure.core.pipeline.policies.http_logging_policy:Response status: 200/nResponse headers:/n    'Date': 'Tue, 26 Oct 2021 04:29:04 GMT'/n    'Content-Type': 'application/json; charset=utf-8'/n    'Server': 'Kestrel'/n    'Transfer-Encoding': 'chunked'
+The latest point is not detected as anomaly.
+{'additional_properties': {}, 'period': 7, 'suggested_window': 29, 'expected_value': 35253918.97570676, 'upper_margin': 352539.189757064, 'lower_margin': 352539.189757064, 'is_anomaly': False, 'is_negative_anomaly': False, 'is_positive_anomaly': False}
+
+
+
+VM20 run module call from py container, endpoint=http://20.191.144.198:5000. return 400 error: (missing "Starting new HTTP connection")
+Detecting the anomaly status of the latest data point.
+INFO:azure.core.pipeline.policies.http_logging_policy:Request URL: 'http://20.191.144.198:5000/anomalydetector/v1.0/timeseries/last/detect'/nRequest method: 'POST'/nRequest headers:/n    'Content-Type': 'application/json'/n    'Accept': 'application/json'/n    'Content-Length': '1011'/n    'x-ms-client-request-id': '8a1f2eea-3614-11ec-aa96-0242ac120005'/n    'User-Agent': 'azsdk-python-ai-anomalydetector/3.0.0b2 Python/3.7.12 (Linux-5.8.0-1043-azure-x86_64-with-debian-10.11)'/n    'Ocp-Apim-Subscription-Key': 'REDACTED'/nA body is sent with the request
+DEBUG:urllib3.connectionpool:http://20.191.144.198:5000 "POST /anomalydetector/v1.0/timeseries/last/detect HTTP/1.1" 400 None
+INFO:azure.core.pipeline.policies.http_logging_policy:Response status: 400/nResponse headers:/n    'Date': 'Tue, 26 Oct 2021 04:23:57 GMT'/n    'Content-Type': 'application/json; charset=utf-8'/n    'Server': 'Kestrel'/n    'Transfer-Encoding': 'chunked'
+Error when filter message: catching classes that do not inherit from BaseException is not allowed
+
+
+
+VM20 run module call from py container, endpoint=https://cctestanamalydetector.cognitiveservices.azure.com/. return 400 error: (missing: Starting new HTTP connection)
+Detecting the anomaly status of the latest data point.
+INFO:azure.core.pipeline.policies.http_logging_policy:Request URL: 'https://cctestanamalydetector.cognitiveservices.azure.com//anomalydetector/v1.0/timeseries/last/detect'/nRequest method: 'POST'/nRequest headers:/n    'Content-Type': 'application/json'/n    'Accept': 'application/json'/n    'Content-Length': '1012'/n    'x-ms-client-request-id': '76e3072a-36cd-11ec-b76e-0242ac120005'/n    'User-Agent': 'azsdk-python-ai-anomalydetector/3.0.0b2 Python/3.7.12 (Linux-5.8.0-1043-azure-x86_64-with-debian-10.11)'/n    'Ocp-Apim-Subscription-Key': 'REDACTED'/nA body is sent with the request
+DEBUG:urllib3.connectionpool:https://cctestanamalydetector.cognitiveservices.azure.com:443 "POST //anomalydetector/v1.0/timeseries/last/detect HTTP/1.1" 400 124
+INFO:azure.core.pipeline.policies.http_logging_policy:Response status: 400/nResponse headers:/n    'Content-Length': '124'/n    'Content-Type': 'application/json'/n    'x-envoy-upstream-service-time': 'REDACTED'/n    'apim-request-id': 'REDACTED'/n    'Strict-Transport-Security': 'REDACTED'/n    'x-content-type-options': 'REDACTED'/n    'Date': 'Wed, 27 Oct 2021 02:27:43 GMT'
+Error when filter message: catching classes that do not inherit from BaseException is not allowed
+
+
+*************************************************logs of AD container******************************************************************
+use AD version v1.1, VM20 run module client on py container with streaming data, endpoint=http://20.191.144.198:5000:
+EULA Notice: Copyright © Microsoft Corporation 2020. This Cognitive Services Container image is made available to you under the terms [https://go.microsoft.com/fwlink/?linkid=2018657] governing your subscription to Microsoft Azure Services (including the Online Services Terms [https://go.microsoft.com/fwlink/?linkid=2018760]). If you do not have a valid Azure subscription, then you may not use this container.
+
+
+Logging to console.
+Submitting metering to 'https://cctestanamalydetector.cognitiveservices.azure.com/'.
+warn: Microsoft.AspNetCore.DataProtection.KeyManagement.XmlKeyManager[35]
+      No XML encryptor configured. Key {e488e12d-78d1-4245-b76c-bf23de531487} may be persisted to storage in unencrypted form.
+warn: Microsoft.AspNetCore.Server.Kestrel[0]
+      Overriding address(es) 'http://+:80'. Binding to endpoints defined in UseKestrel() instead.
+Hosting environment: Production
+Content root path: /app
+Now listening on: http://0.0.0.0:5000
+Application started. Press Ctrl+C to shut down.
+Application is shutting down...
+
+
+EULA Notice: Copyright © Microsoft Corporation 2020. This Cognitive Services Container image is made available to you under the terms [https://go.microsoft.com/fwlink/?linkid=2018657] governing your subscription to Microsoft Azure Services (including the Online Services Terms [https://go.microsoft.com/fwlink/?linkid=2018760]). If you do not have a valid Azure subscription, then you may not use this container.
+
+
+Logging to console.
+Submitting metering to 'https://cctestanamalydetector.cognitiveservices.azure.com/'.
+warn: Microsoft.AspNetCore.Server.Kestrel[0]
+      Overriding address(es) 'http://+:80'. Binding to endpoints defined in UseKestrel() instead.
+Hosting environment: Production
+Content root path: /app
+Now listening on: http://0.0.0.0:5000
+Application started. Press Ctrl+C to shut down.
+Application is shutting down...
+
+
+EULA Notice: Copyright © Microsoft Corporation 2020. This Cognitive Services Container image is made available to you under the terms [https://go.microsoft.com/fwlink/?linkid=2018657] governing your subscription to Microsoft Azure Services (including the Online Services Terms [https://go.microsoft.com/fwlink/?linkid=2018760]). If you do not have a valid Azure subscription, then you may not use this container.
+
+
+Logging to console.
+Submitting metering to 'https://cctestanamalydetector.cognitiveservices.azure.com/'.
+warn: Microsoft.AspNetCore.Server.Kestrel[0]
+      Overriding address(es) 'http://+:80'. Binding to endpoints defined in UseKestrel() instead.
+Hosting environment: Production
+Content root path: /app
+Now listening on: http://0.0.0.0:5000
+Application started. Press Ctrl+C to shut down.
+
+
+
+
+
+
+ENV ANOMALY_DETECTOR_ENDPOINT="https://cctestanamalydetector.cognitiveservices.azure.com/"
+ENV ANOMALY_DETECTOR_KEY="3850bf4b542648d29912c8dd86d87afc"
+
+ENV ANOMALY_DETECTOR_ENDPOINT="http://20.191.144.198:5000/"
+ENV ANOMALY_DETECTOR_KEY=""

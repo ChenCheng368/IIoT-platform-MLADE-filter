@@ -1,0 +1,193 @@
+{
+    "modulesContent": {
+        "$edgeAgent": {
+            "properties.desired": {
+                "modules": {
+                    "discovery": {
+                        "settings": {
+                            "image": "mcr.microsoft.com/iotedge/discovery:2.8.1",
+                            "createOptions": "{\"Hostname\":\"discovery\",\"Cmd\":[\"PkiRootPath=/mount/pki\"],\"NetworkingConfig\":{\"EndpointsConfig\":{\"host\":{}}},\"HostConfig\":{\"NetworkMode\":\"host\",\"CapAdd\":[\"NET_ADMIN\"],\"Binds\":[\"/mount:/mount\"]}}"
+                        },
+                        "type": "docker",
+                        "version": "2.8.1",
+                        "status": "running",
+                        "restartPolicy": "always"
+                    },
+                    "twin": {
+                        "settings": {
+                            "image": "mcr.microsoft.com/iotedge/opc-twin:2.8.1",
+                            "createOptions": "{\"Hostname\":\"twin\",\"Cmd\":[\"PkiRootPath=/mount/pki\"],\"HostConfig\":{\"Binds\":[\"/mount:/mount\"]}}"
+                        },
+                        "type": "docker",
+                        "version": "2.8.1",
+                        "status": "running",
+                        "restartPolicy": "always"
+                    },
+                    "publisher": {
+                        "settings": {
+                            "image": "mcr.microsoft.com/iotedge/opc-publisher:2.8.1",
+                            "createOptions": "{\"Hostname\":\"publisher\",\"Cmd\":[\"PkiRootPath=/mount/pki\",\"--aa\"],\"HostConfig\":{\"Binds\":[\"/mount:/mount\"]}}"
+                        },
+                        "type": "docker",
+                        "version": "2.8.1",
+                        "status": "running",
+                        "restartPolicy": "always"
+                    },
+                    "metricscollector": {
+                        "settings": {
+                            "image": "mcr.microsoft.com/azureiotedge-metrics-collector:1.0",
+                            "createOptions": "{}"
+                        },
+                        "type": "docker",
+                        "version": "1.0",
+                        "env": {
+                            "UploadTarget": {
+                                "value": "AzureMonitor"
+                            },
+                            "LogAnalyticsWorkspaceId": {
+                                "value": "b3e3781a-49af-4aca-a3ac-703924bfb1a2"
+                            },
+                            "LogAnalyticsSharedKey": {
+                                "value": "AsbGD72/RN66+jU4gsnbrvz+UeeOj6CkKsk7Wx81Qv8pibxPAtNhCSeU2hjNOGS8iyycXC9m60BrYzD076buuA=="
+                            },
+                            "ResourceId": {
+                                "value": "/subscriptions/e59861cc-56ff-4d78-8f52-f3014e04fa2d/resourceGroups/industrialIot5/providers/Microsoft.Devices/IotHubs/iothub-7mmkkq"
+                            },
+                            "MetricsEndpointsCSV": {
+                                "value": "http://edgehub:9600/metrics,http://edgeagent:9600/metrics,http://twin:9701/metrics,http://publisher:9702/metrics"
+                            }
+                        },
+                        "status": "running",
+                        "restartPolicy": "always"
+                    },
+                    "EdgeModuleAnomalyDetector": {
+                        "settings": {
+                            "image": "mcr.microsoft.com/azure-cognitive-services/decision/anomaly-detector",
+                            "createOptions": "{\"ExposedPorts\":{\"5000/tcp\":{}},\"HostConfig\":{\"PortBindings\":{\"5000/tcp\":[{\"HostPort\":\"5000\"}]}}}"
+                        },
+                        "type": "docker",
+                        "version": "1.0",
+                        "env": {
+                            "Eula": {
+                                "value": "accept"
+                            },
+                            "Billing": {
+                                "value": "https://cctestanamalydetector.cognitiveservices.azure.com/"
+                            },
+                            "ApiKey": {
+                                "value": "3850bf4b542648d29912c8dd86d87afc"
+                            }
+                        },
+                        "status": "running",
+                        "restartPolicy": "always"
+                    },
+                    "FilterModule": {
+                        "settings": {
+                            "image": "iiot5containerregistry.azurecr.io/filtermodule:v2",
+                            "createOptions": "{}"
+                        },
+                        "type": "docker",
+                        "version": "1.0",
+                        "status": "running",
+                        "restartPolicy": "always"
+                    }
+                },
+                "runtime": {
+                    "settings": {
+                        "minDockerVersion": "v1.25",
+                        "registryCredentials": {
+                            "my_acr": {
+                                "address": "iiot5containerregistry.azurecr.io",
+                                "password": "ZCqKEipOy7iwBO5hckCCGoZ=v1aE6vXg",
+                                "username": "iiot5containerregistry"
+                            }
+                        }
+                    },
+                    "type": "docker"
+                },
+                "schemaVersion": "1.0",
+                "systemModules": {
+                    "edgeAgent": {
+                        "settings": {
+                            "image": "mcr.microsoft.com/azureiotedge-agent:1.1",
+                            "createOptions": "{}"
+                        },
+                        "type": "docker",
+                        "env": {
+                            "ExperimentalFeatures__Enabled": {
+                                "value": "true"
+                            },
+                            "ExperimentalFeatures__EnableGetLogs": {
+                                "value": "true"
+                            },
+                            "ExperimentalFeatures__EnableUploadLogs": {
+                                "value": "true"
+                            },
+                            "ExperimentalFeatures__EnableMetrics": {
+                                "value": "true"
+                            }
+                        }
+                    },
+                    "edgeHub": {
+                        "settings": {
+                            "image": "mcr.microsoft.com/azureiotedge-hub:1.1",
+                            "createOptions": "{\"HostConfig\":{\"PortBindings\":{\"443/tcp\":[{\"HostPort\":\"443\"}],\"5671/tcp\":[{\"HostPort\":\"5671\"}],\"8883/tcp\":[{\"HostPort\":\"8883\"}]}},\"ExposedPorts\":{\"5671/tcp\":{},\"8883/tcp\":{}}}"
+                        },
+                        "type": "docker",
+                        "env": {
+                            "SslProtocols": {
+                                "value": "tls1.2"
+                            }
+                        },
+                        "status": "running",
+                        "restartPolicy": "always"
+                    }
+                }
+            }
+        },
+        "$edgeHub": {
+            "properties.desired": {
+                "routes": {
+                    "discoveryToUpstream": "FROM /messages/modules/discovery/* INTO $upstream",
+                    "twinToUpstream": "FROM /messages/modules/twin/* INTO $upstream",
+		    "publisherToUpstream": "FROM /messages/modules/publisher/* INTO BrokeredEndpoint(\"/modules/FilterModule/inputs/input1\")",
+
+                    "leafToUpstream": "FROM /messages/* WHERE NOT IS_DEFINED($connectionModuleId) INTO $upstream",
+                    "metricscollectorToUpstream": "FROM /messages/modules/metricscollector/* INTO $upstream",
+                    "filterModuleToUpstream": "FROM /messages/modules/FilterModule/outputs/* INTO $upstream"
+                },
+                "schemaVersion": "1.0",
+                "storeAndForwardConfiguration": {
+                    "timeToLiveSecs": 7200
+                }
+            }
+        },
+        "discovery": {
+            "properties.desired": {
+                "Discovery": "Fast"
+            }
+        },
+        "twin": {
+            "properties.desired": {}
+        },
+        "publisher": {
+            "properties.desired": {
+                "JobOrchestratorUrl": "https://svc7mmkk.azurewebsites.net/edge/publisher",
+                "IdentityToken": {
+                "expires": "2021-12-16T09:54:30.8935672Z",
+                "key": "WFROTi5BazljKG43TnVGYTVPNmspL0VmYiHCpzl4SSHCp19VN1gpLlNHS08lTShGUEtiYlplIXglSjl2bmIhRjUl",
+                "identity": "linuxgateway0-nas6j6h/publisher"
+                }
+            }
+        },
+        "metricscollector": {
+            "properties.desired": {}
+        },
+        "EdgeModuleAnomalyDetector": {
+            "properties.desired": {}
+        },
+        "FilterModule": {
+            "properties.desired": {}
+        }
+    }
+}

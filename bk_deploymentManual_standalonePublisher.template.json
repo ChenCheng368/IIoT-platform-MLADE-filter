@@ -1,0 +1,112 @@
+{
+    "modulesContent": {
+        "$edgeAgent": {
+            "properties.desired": {
+                "modules": {
+                    "publisher": {
+                        "settings": {
+                            "image": "mcr.microsoft.com/iotedge/opc-publisher:2.8.1",
+                            "createOptions": "{\"Hostname\":\"OPCPublisher\",\"Cmd\":[\"PkiRootPath=/appdata/pki\",\"--lf=/appdata/publisher.log\",\"--pf=/appdata/publishednodes.json\",\"--aa\",\"--di=60\",\"--me=Json\",\"--mm=PubSub\"],\"HostConfig\":{\"ExtraHosts\":[\"opctestsvr:104.210.60.191\"],\"Binds\":[\"/home/chencheng/IoTEdgeMapping:/appdata\"]}}"
+                        },
+                        "type": "docker",
+                        "version": "2.8.1",
+                        "status": "running",
+                        "restartPolicy": "always"
+                    },
+                    "Heartbeat": {
+                        "settings": {
+                            "image": "cctestcontainerregistry.azurecr.io/heartbeat:v1",
+                            "createOptions": "{ \"Env\": [\"DEVICE_NAME=iotedgedeviceVM2\",\"START_WINDOW_IN_SECONDS=0\",\"END_WINDOW_IN_SECONDS=60\",\"BEAT_FREQUENCY_IN_SECONDS=120\"]}"
+                        },
+                        "type": "docker",
+                        "version": "1.0",
+                        "status": "running",
+                        "restartPolicy": "never"
+                    },
+                    "EdgeModuleAnomalyDetector": {
+                        "settings": {
+                            "image": "mcr.microsoft.com/azure-cognitive-services/decision/anomaly-detector",
+                            "createOptions": "{\"ExposedPorts\":{\"5000/tcp\":{}},\"HostConfig\":{\"PortBindings\":{\"5000/tcp\":[{\"HostPort\":\"5000\"}]}}}"
+                        },
+                        "type": "docker",
+                        "version": "1.0",
+                        "env": {
+                            "Eula": {
+                                "value": "accept"
+                            },
+                            "Billing": {
+                                "value": "https://cctestanamalydetector.cognitiveservices.azure.com/"
+                            },
+                            "ApiKey": {
+                                "value": "3850bf4b542648d29912c8dd86d87afc"
+                            }
+                        },
+                        "status": "running",
+                        "restartPolicy": "always"
+                    },
+                    "FilterModule": {
+                        "settings": {
+                            "image": "cctestcontainerregistry.azurecr.io/filtermodule:v2",
+                            "createOptions": "{}"
+                        },
+                        "type": "docker",
+                        "version": "1.0",
+                        "status": "running",
+                        "restartPolicy": "never"
+                    }
+                },
+                "runtime": {
+                    "settings": {
+                        "minDockerVersion": "v1.25",
+                        "registryCredentials": {
+                            "my_acr": {
+                                "address": "cctestcontainerregistry.azurecr.io",
+                                "password": "HZXiAFPj/fO7+aSnbLIMp9L6X6mxL3mS",
+                                "username": "cctestcontainerregistry"
+                            }
+                        }
+                    },
+                    "type": "docker"
+                },
+                "schemaVersion": "1.1",
+                "systemModules": {
+                    "edgeAgent": {
+                        "settings": {
+                            "image": "mcr.microsoft.com/azureiotedge-agent:1.2",
+                            "createOptions": "{}"
+                        },
+                        "type": "docker"
+                    },
+                    "edgeHub": {
+                        "settings": {
+                            "image": "mcr.microsoft.com/azureiotedge-hub:1.2",
+                            "createOptions": "{\"HostConfig\":{\"PortBindings\":{\"5671/tcp\":[{\"HostPort\":\"5671\"}],\"8883/tcp\":[{\"HostPort\":\"8883\"}],\"443/tcp\":[{\"HostPort\":\"443\"}]}}}"
+                        },
+                        "type": "docker",
+                        "status": "running",
+                        "restartPolicy": "always"
+                    }
+                }
+            }
+        },
+        "$edgeHub": {
+            "properties.desired": {
+                "routes": {
+                    "publisherToFilter": "FROM /messages/modules/publisher/* INTO BrokeredEndpoint(\"/modules/FilterModule/inputs/input1\")",
+                    "HeartbeatToIoTHub": "FROM /messages/modules/Heartbeat/outputs/sendHeartbeat INTO $upstream",
+                    "filterModuleToUpstream": "FROM /messages/modules/FilterModule/outputs/* INTO $upstream"
+                },
+                "schemaVersion": "1.1",
+                "storeAndForwardConfiguration": {
+                    "timeToLiveSecs": 7200
+                }
+            }
+        },
+        "publisher": {
+            "properties.desired": {}
+        },
+        "Heartbeat": {
+            "properties.desired": {}
+        }
+    }
+}

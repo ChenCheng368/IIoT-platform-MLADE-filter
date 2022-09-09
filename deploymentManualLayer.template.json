@@ -1,0 +1,17 @@
+{
+  "content": {
+  "modulesContent": {
+       "$edgeAgent": {},
+       "$edgeHub": {
+                    "properties.desired.routes.discoveryToUpstream": "",
+                    "properties.desired.routes.twinToUpstream": "",
+                    "properties.desired.routes.publisherToUpstream": "",
+                    "properties.desired.routes.publisherToFilterModule": "FROM /messages/modules/publisher/* INTO BrokeredEndpoint(\"/modules/FilterModule/inputs/input1\")",
+                    "properties.desired.routes.filterModuleToUpstream": "FROM /messages/modules/FilterModule/outputs/* INTO $upstream",
+                    "properties.desired.routes.leafToUpstream": "",
+                    "properties.desired.routes.metricscollectorToUpstream": ""
+        }
+
+    }
+  }
+}

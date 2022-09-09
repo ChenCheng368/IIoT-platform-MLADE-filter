@@ -1,0 +1,16 @@
+{
+  "content": {
+  "modulesContent": {
+       "$edgeAgent": {},
+       "$edgeHub": {
+                    "properties.desired.routes.discoveryToUpstream": "FROM /messages/modules/discovery/* INTO $upstream",
+                    "properties.desired.routes.twinToUpstream": "FROM /messages/modules/twin/* INTO $upstream",
+                    "properties.desired.routes.publisherToFilterModule": "FROM /messages/modules/publisher/* INTO BrokeredEndpoint(\"/modules/FilterModule/inputs/input1\")",
+                    "properties.desired.routes.filterModuleToUpstream": "FROM /messages/modules/FilterModule/outputs/* INTO $upstream",
+                    "properties.desired.routes.leafToUpstream": "FROM /messages/* WHERE NOT IS_DEFINED($connectionModuleId) INTO $upstream",
+                    "properties.desired.routes.metricscollectorToUpstream": "FROM /messages/modules/metricscollector/* INTO $upstream"
+        }
+
+    }
+  }
+}
