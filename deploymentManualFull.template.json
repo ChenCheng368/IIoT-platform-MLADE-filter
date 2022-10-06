@@ -45,16 +45,16 @@
                                 "value": "AzureMonitor"
                             },
                             "LogAnalyticsWorkspaceId": {
-                                "value": "b3e3781a-49af-4aca-a3ac-703924bfb1a2"
+                                "value": ""
                             },
                             "LogAnalyticsSharedKey": {
-                                "value": "AsbGD72/RN66+jU4gsnbrvz+UeeOj6CkKsk7Wx81Qv8pibxPAtNhCSeU2hjNOGS8iyycXC9m60BrYzD076buuA=="
+                                "value": ""
                             },
                             "ResourceId": {
-                                "value": "/subscriptions/e59861cc-56ff-4d78-8f52-f3014e04fa2d/resourceGroups/industrialIot5/providers/Microsoft.Devices/IotHubs/iothub-7mmkkq"
+                                "value": ""
                             },
                             "MetricsEndpointsCSV": {
-                                "value": "http://edgehub:9600/metrics,http://edgeagent:9600/metrics,http://twin:9701/metrics,http://publisher:9702/metrics"
+                                "value": ""
                             }
                         },
                         "status": "running",
@@ -72,10 +72,10 @@
                                 "value": "accept"
                             },
                             "Billing": {
-                                "value": "https://cctestanamalydetector.cognitiveservices.azure.com/"
+                                "value": ""
                             },
                             "ApiKey": {
-                                "value": "3850bf4b542648d29912c8dd86d87afc"
+                                "value": ""
                             }
                         },
                         "status": "running",
@@ -97,9 +97,9 @@
                         "minDockerVersion": "v1.25",
                         "registryCredentials": {
                             "my_acr": {
-                                "address": "iiot5containerregistry.azurecr.io",
-                                "password": "ZCqKEipOy7iwBO5hckCCGoZ=v1aE6vXg",
-                                "username": "iiot5containerregistry"
+                                "address": "",
+                                "password": "",
+                                "username": ""
                             }
                         }
                     },
@@ -172,11 +172,11 @@
         },
         "publisher": {
             "properties.desired": {
-                "JobOrchestratorUrl": "https://svc7mmkk.azurewebsites.net/edge/publisher",
+                "JobOrchestratorUrl": "",
                 "IdentityToken": {
-                "expires": "2021-12-16T09:54:30.8935672Z",
-                "key": "WFROTi5BazljKG43TnVGYTVPNmspL0VmYiHCpzl4SSHCp19VN1gpLlNHS08lTShGUEtiYlplIXglSjl2bmIhRjUl",
-                "identity": "linuxgateway0-nas6j6h/publisher"
+                "expires": "",
+                "key": "",
+                "identity": ""
                 }
             }
         },
