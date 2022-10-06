@@ -45,16 +45,16 @@
                                 "value": "AzureMonitor"
                             },
                             "LogAnalyticsWorkspaceId": {
-                                "value": "35d55d35-3a5b-40bd-874c-f421f619ff78"
+                                "value": ""
                             },
                             "LogAnalyticsSharedKey": {
-                                "value": "jX8uMZ3YfS7s+GHcrVEbMMtEc2IrmlP2kZ/y7qTBIIo+EmM5Uv+FpgwVGtLHHM92EoCBBkZ6Csvrpp3r72qzBA=="
+                                "value": ""
                             },
                             "ResourceId": {
-                                "value": "/subscriptions/37c05d60-ba37-4d8d-b39b-1e7a49c34242/resourceGroups/industrialIot4/providers/Microsoft.Devices/IotHubs/iothub-uh7xqn"
+                                "value": ""
                             },
                             "MetricsEndpointsCSV": {
-                                "value": "http://edgehub:9600/metrics,http://edgeagent:9600/metrics,http://twin:9701/metrics,http://publisher:9702/metrics"
+                                "value": ""
                             }
                         },
                         "status": "running",
@@ -72,10 +72,10 @@
                                 "value": "accept"
                             },
                             "Billing": {
-                                "value": "https://iiot4anomalydetector.cognitiveservices.azure.com/"
+                                "value": ""
                             },
                             "ApiKey": {
-                                "value": "67ee82d55015429f92d0eccbbc92a53f"
+                                "value": ""
                             }
                         },
                         "status": "running",
@@ -97,9 +97,9 @@
                         "minDockerVersion": "v1.25",
                         "registryCredentials": {
                             "my_acr": {
-                                "address": "personalaccountcontainerregistry.azurecr.io",
-                                "password": "+OiPs1f9rLGH9BkpKXyp1geTcZUI9KZj",
-                                "username": "personalaccountcontainerregistry"
+                                "address": "",
+                                "password": "",
+                                "username": ""
                             }
                         }
                     },
@@ -174,11 +174,11 @@
         "publisher": {
             "properties.desired": {
                 "IdentityToken": {
-                    "identity": "linuxgateway0-xj3uegv/publisher",
-                    "key": "VEsseWxYTy9oQmh0JmUsejlfVC5ZWXk1aDdabzduLzNVKFZKJGh1NFpvWURIJmJhRExzOVIxJDVjTG9fZy4oVw==",
-                    "expires": "2021-12-07T10:53:08.2141907Z"
+                    "identity": "",
+                    "key": "",
+                    "expires": ""
                 },
-                "JobOrchestratorUrl": "https://svcuh7xq.azurewebsites.net/edge/publisher"
+                "JobOrchestratorUrl": ""
             }
         },
         "metricscollector": {
