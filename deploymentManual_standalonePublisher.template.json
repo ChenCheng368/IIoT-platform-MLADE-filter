@@ -35,10 +35,10 @@
                                 "value": "accept"
                             },
                             "Billing": {
-                                "value": "https://cctestanamalydetector.cognitiveservices.azure.com/"
+                                "value": ""
                             },
                             "ApiKey": {
-                                "value": "3850bf4b542648d29912c8dd86d87afc"
+                                "value": ""
                             }
                         },
                         "status": "running",
@@ -60,9 +60,9 @@
                         "minDockerVersion": "v1.25",
                         "registryCredentials": {
                             "my_acr": {
-                                "address": "cctestcontainerregistry.azurecr.io",
-                                "password": "HZXiAFPj/fO7+aSnbLIMp9L6X6mxL3mS",
-                                "username": "cctestcontainerregistry"
+                                "address": "",
+                                "password": "",
+                                "username": ""
                             }
                         }
                     },
