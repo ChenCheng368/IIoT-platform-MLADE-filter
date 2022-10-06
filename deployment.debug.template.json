@@ -79,10 +79,10 @@
                                 "value": "accept"
                             },
                             "Billing": {
-                                "value": "https://cctestanamalydetector.cognitiveservices.azure.com/"
+                                "value": ""
                             },
                             "ApiKey": {
-                                "value": "3850bf4b542648d29912c8dd86d87afc"
+                                "value": ""
                             }
                         },
                         "status": "running",
